@@ -1,15 +1,15 @@
-const CACHE = 'jogo-premium-v1';
+const CACHE = 'jogo-premium-v2';
 const ASSETS = [
-  '/public_html/jogo-premium.php',
-  '/public_html/assets/styles.css',
-  '/public_html/assets/lib/phaser.min.js',
-  '/public_html/assets/src/main.js',
-  '/public_html/assets/src/levels.js',
-  '/public_html/assets/src/scenes/BootScene.js',
-  '/public_html/assets/src/scenes/MenuScene.js',
-  '/public_html/assets/src/scenes/GameScene.js',
-  '/public_html/assets/src/scenes/SubmitScoreScene.js',
-  '/public_html/assets/src/scenes/ScoreboardScene.js'
+  '/jogo-premium.php',
+  '/assets/styles.css',
+  '/assets/lib/phaser.min.js',
+  '/assets/src/main.js',
+  '/assets/src/levels.js',
+  '/assets/src/scenes/BootScene.js',
+  '/assets/src/scenes/MenuScene.js',
+  '/assets/src/scenes/GameScene.js',
+  '/assets/src/scenes/SubmitScoreScene.js',
+  '/assets/src/scenes/ScoreboardScene.js'
 ];
 
 self.addEventListener('install', (e) => {
