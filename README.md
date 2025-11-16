@@ -28,6 +28,7 @@ Este repositório contém somente o conteúdo da pasta `public_html` (raiz do si
    - Eventos: checkout.session.completed, customer.subscription.created, customer.subscription.updated, customer.subscription.deleted
    - Copie o whsec_… para a variável.
 3. Habilite Customer Portal (para `stripe/portal.php`).
+4. Consulte o [Guia Detalhado de Configuração Stripe](./STRIPE_SETUP.md) para um passo a passo completo (incluindo testes com Stripe CLI).
 
 ## Deploy automático (GitHub Actions)
 
