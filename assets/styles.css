@@ -1,0 +1,17 @@
+/* Estilos básicos para a página do jogo premium */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #0b1220;
+  color: #e6edf3;
+  height: 100%;
+}
+
+#game-root {
+  width: 100vw;
+  height: calc(100vh - 44px);
+  display: block;
+}
+
+canvas { display: block; margin: 0 auto; }
+
