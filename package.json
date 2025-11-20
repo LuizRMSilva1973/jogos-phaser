@@ -1,0 +1,21 @@
+{
+  "name": "phaser",
+  "version": "1.0.0",
+  "description": "Jogo de plataforma 2D simples, responsivo e pronto para hospedagem estática (ex.: Hostinger). Foi feito com Phaser 3 e não precisa de backend. Todos os gráficos são gerados por código para facilitar distribuição sem arquivos de arte.",
+  "main": "sw.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "start:5173": "PORT=5173 node server.js",
+    "start:8081": "PORT=8081 node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

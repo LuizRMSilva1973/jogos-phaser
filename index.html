@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Sky Platforms — Sua Marca</title>
+    <meta name="description" content="Jogo de plataforma simples feito com Phaser 3. Preparado para hospedagem estática (Hostinger)." />
+    <link rel="icon" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Phaser local. -->
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#0a84ff"/>
+    <script src="lib/phaser.min.js" defer></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').catch(() => {});
+        });
+      }
+    </script>
+    <script src="src/main.js" type="module" defer></script>
+  </head>
+  <body>
+    <div id="game-root"></div>
+    <noscript>Habilite o JavaScript para jogar.</noscript>
+  </body>
+  </html>

@@ -1,0 +1,24 @@
+# Node
+node_modules/
+npm-debug.log*
+pnpm-lock.yaml
+yarn.lock
+
+# Build/coverage
+dist/
+build/
+coverage/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local tools/artifacts
+.marscode/
+UnityHub.AppImage
+
+# Env
+.env
+.env.*
