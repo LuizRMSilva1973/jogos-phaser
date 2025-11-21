@@ -1,4 +1,7 @@
-const CACHE = 'sky-platforms-v1';
+const CACHE = 'sky-platforms-v2';
+const BASE = self.registration.scope.endsWith('/')
+  ? self.registration.scope.slice(0, -1)
+  : self.registration.scope;
 const ASSETS = [
   '/',
   '/index.html',
@@ -12,7 +15,12 @@ const ASSETS = [
   '/src/scenes/BootScene.js',
   '/src/scenes/MenuScene.js',
   '/src/scenes/GameScene.js'
-];
+].map((path) => {
+  // Garante que o SW funcione em subdiretórios (ex.: GitHub Pages /jogos-phaser/)
+  if (path.startsWith('http')) return path;
+  if (!path.startsWith('/')) path = `/${path}`;
+  return `${BASE}${path}`;
+});
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
@@ -35,4 +43,3 @@ self.addEventListener('fetch', (e) => {
     );
   }
 });
-
