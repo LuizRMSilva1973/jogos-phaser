@@ -11,6 +11,13 @@ Jogo de plataforma 2D, rápido, responsivo e instalável (PWA).
 
 </div>
 
+<p align="center">
+  <img alt="Capa do jogo Sky Platforms" src="assets/cover.svg" width="820" />
+  <br/>
+  <em>Sky Platforms — Phaser 3 • PWA • GitHub Pages</em>
+  <br/><br/>
+</p>
+
 ## Destaques
 - Física arcade com pulos, colisões e coleta de estrelas
 - Bombas reativas quando o nível é limpo (desafio crescente)
