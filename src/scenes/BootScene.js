@@ -1,3 +1,5 @@
+import { requireSubscription } from '../subscription.js';
+
 export default class BootScene extends Phaser.Scene {
   constructor() {
     super('Boot');
@@ -8,9 +10,10 @@ export default class BootScene extends Phaser.Scene {
   }
 
   create() {
+    if (!requireSubscription({ gameId: 'sky' })) return;
     this.createGeneratedTextures();
-    // Inicia o jogo imediatamente (bypass do menu)
-    this.scene.start('Game');
+    // Vai para o menu do jogo atual
+    this.scene.start('Menu');
   }
 
   createGeneratedTextures() {

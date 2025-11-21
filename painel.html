@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Painel da Plataforma de Jogos — Luiz Games</title>
+    <meta name="description" content="Central para acessar todos os jogos e gerenciar a assinatura Acesso Total." />
+    <link rel="icon" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="panel-body">
+    <header class="panel-hero">
+      <div class="pill">Painel</div>
+      <h1>Painel da Plataforma de Jogos</h1>
+      <p>Abra qualquer jogo com sua assinatura ativa. Tudo fica salvo localmente (sem cadastro).</p>
+      <div class="panel-actions">
+        <a id="subscribe-btn" class="btn primary" href="https://buy.stripe.com/8x2bJ26MB7xmftZe5t2VG02" target="_blank" rel="noopener">Assinar Acesso Total</a>
+        <button id="activate-btn" class="btn ghost">Já paguei! Ativar acesso</button>
+      </div>
+      <div id="status-text" class="status-chip muted"></div>
+    </header>
+
+    <main>
+      <h2 class="section-title">Jogos disponíveis</h2>
+      <div id="games-grid" class="card-grid"></div>
+    </main>
+
+    <section class="info-box">
+      <h3>Como funciona</h3>
+      <ul>
+        <li>O botão <strong>Assinar Acesso Total</strong> abre o checkout do Stripe.</li>
+        <li>Após o pagamento, você volta para este painel e a renovação de 30 dias é salva no seu navegador.</li>
+        <li>Todos os jogos chamam <code>hasActiveSubscription()</code> antes de iniciar.</li>
+      </ul>
+    </section>
+
+    <script type="module">
+      import { games } from './src/games.js';
+      import { hasActiveSubscription, saveSubscription, isExpired } from './src/subscription.js';
+
+      const paymentLink = 'https://buy.stripe.com/8x2bJ26MB7xmftZe5t2VG02';
+      const statusText = document.getElementById('status-text');
+      const grid = document.getElementById('games-grid');
+      const activateBtn = document.getElementById('activate-btn');
+
+      function formatDate(date) {
+        return new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium', timeStyle: 'short' }).format(date);
+      }
+
+      function updateStatus() {
+        const stored = localStorage.getItem(window.__SUBSCRIPTION_STORAGE_KEY);
+        if (!stored || isExpired(stored)) {
+          statusText.textContent = 'Assinatura inativa. Clique em "Assinar Acesso Total".';
+          statusText.classList.add('muted');
+          return false;
+        }
+        const expires = new Date(stored);
+        statusText.textContent = `Assinatura ativa até ${formatDate(expires)}.`;
+        statusText.classList.remove('muted');
+        return true;
+      }
+
+      function openGame(gameId) {
+        if (!hasActiveSubscription()) {
+          window.location.href = paymentLink;
+          return;
+        }
+        const url = new URL('index.html', window.location.origin);
+        url.searchParams.set('game', gameId);
+        window.location.href = url.toString();
+      }
+
+      function renderGames() {
+        grid.innerHTML = '';
+        games.forEach((game) => {
+          const card = document.createElement('article');
+          card.className = 'card';
+          const title = document.createElement('h3');
+          title.textContent = game.title;
+          const meta = document.createElement('p');
+          meta.className = 'card-meta';
+          meta.textContent = game.implemented ? 'Pronto para jogar' : 'Em breve';
+          const btn = document.createElement('button');
+          btn.textContent = 'Abrir jogo';
+          btn.className = 'btn secondary';
+          btn.disabled = !game.implemented;
+          btn.addEventListener('click', () => openGame(game.id));
+
+          card.appendChild(title);
+          card.appendChild(meta);
+          card.appendChild(btn);
+          grid.appendChild(card);
+        });
+      }
+
+      function handlePostPayment() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('status') === 'ok') {
+          const expiry = saveSubscription();
+          if (expiry) {
+            statusText.textContent = `Acesso liberado. Expira em ${formatDate(expiry)}.`;
+            statusText.classList.remove('muted');
+          }
+        }
+      }
+
+      activateBtn.addEventListener('click', () => {
+        const expiry = saveSubscription();
+        if (expiry) {
+          statusText.textContent = `Acesso ativado manualmente até ${formatDate(expiry)}.`;
+          statusText.classList.remove('muted');
+        }
+      });
+
+      // Primeira carga
+      renderGames();
+      handlePostPayment();
+      updateStatus();
+    </script>
+  </body>
+</html>

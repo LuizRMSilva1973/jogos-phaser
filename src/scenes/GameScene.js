@@ -1,4 +1,5 @@
 import { makeLevels } from '../levels.js';
+import { requireSubscription } from '../subscription.js';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -17,6 +18,8 @@ export default class GameScene extends Phaser.Scene {
     this.levelIndex = 0;
 
     const { width, height } = this.scale;
+
+    if (!requireSubscription({ gameId: 'sky' })) return;
 
     // Background gradient rectangles
     const bg = this.add.graphics();
@@ -74,6 +77,7 @@ export default class GameScene extends Phaser.Scene {
     };
     this.input.on('pointerdown', resume);
     this.input.keyboard?.on('keydown', resume);
+
   }
 
   createTouchControls() {
