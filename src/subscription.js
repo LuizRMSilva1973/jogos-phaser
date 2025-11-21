@@ -34,7 +34,8 @@ export function requireSubscription({ gameId, redirectUrl = 'painel.html' } = {}
   if (hasActiveSubscription()) return true;
   if (typeof window === 'undefined') return false;
 
-  const url = new URL(redirectUrl, window.location.origin);
+  const base = window.location.origin + window.location.pathname.replace(/[^/]*$/, '');
+  const url = new URL(redirectUrl, base);
   url.searchParams.set('expired', '1');
   if (gameId) url.searchParams.set('game', gameId);
   window.location.href = url.toString();
@@ -49,4 +50,3 @@ if (typeof window !== 'undefined') {
   window.requireSubscription = requireSubscription;
   window.__SUBSCRIPTION_STORAGE_KEY = STORAGE_KEY;
 }
-

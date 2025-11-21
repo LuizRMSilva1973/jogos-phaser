@@ -65,7 +65,8 @@
           window.location.href = paymentLink;
           return;
         }
-        const url = new URL('index.html', window.location.origin);
+        const base = window.location.origin + window.location.pathname.replace(/[^/]*$/, '');
+        const url = new URL('index.html', base);
         url.searchParams.set('game', gameId);
         window.location.href = url.toString();
       }
